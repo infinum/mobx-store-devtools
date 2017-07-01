@@ -1,4 +1,5 @@
 var remotedev = require('remotedev');
+var mobx = require('mobx');
 
 var silent = false;
 
@@ -8,34 +9,35 @@ function silentAction(store, action, ...args) {
   silent = false;
 }
 
-function toggleAction(store, id, state) {
-  const idx = state.skippedActionIds.indexOf(id);
-  const skipped = idx !== -1;
-  const start = state.stagedActionIds.indexOf(id);
+var toggleAction = mobx.action('TOGGLE_ACTION', function toggleAction(store, id, state) {
+  var start = state.stagedActionIds.indexOf(id);
 
   if (start === -1) {
     return state;
   }
 
-  silent(store, 'insert', state.computedStates[start - 1].state);
+  var toggledActionIndex = state.skippedActionIds.indexOf(id);
+  var skipped = toggledActionIndex !== -1;
 
-  for (let i = (skipped ? start : start + 1); i < state.stagedActionIds.length; i++) {
+  silentAction(store, 'insert', state.computedStates[start - 1].state);
+
+  for (var i = (skipped ? start : start + 1); i < state.stagedActionIds.length; i++) {
     if (i !== start && state.skippedActionIds.indexOf(state.stagedActionIds[i]) !== -1) {
       continue; // it's already skipped
     }
 
-    silent(store, 'applyPatch', state.actionsById[state.stagedActionIds[i]].action);
+    silentAction(store, 'applyPatch', state.actionsById[state.stagedActionIds[i]].action);
     state.computedStates[i].state = store.snapshot;
   }
 
   if (skipped) {
-    state.skippedActionIds.splice(idx, 1);
+    state.skippedActionIds.splice(toggledActionIndex, 1);
   } else {
     state.skippedActionIds.push(id);
   }
 
   return state;
-}
+});
 
 module.exports = {
   init: function init(store) {
@@ -55,7 +57,7 @@ module.exports = {
       var state = remotedev.extractState(message);
 
       if (state instanceof Array) {
-        silent(store, 'insert', state);
+        silentAction(store, 'insert', state);
       } else if (message.payload) {
         switch(message.payload.type) {
           case 'TOGGLE_ACTION':
