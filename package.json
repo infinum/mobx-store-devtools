@@ -1,6 +1,6 @@
 {
   "name": "mobx-store-devtools",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Connector between Redux DevTools Extension and mobx-collection-store/mobx-jsonapi-store",
   "main": "index.js",
   "typings": "index.d.ts",
