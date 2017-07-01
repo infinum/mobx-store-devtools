@@ -3,9 +3,9 @@ var mobx = require('mobx');
 
 var silent = false;
 
-function silentAction(store, action, ...args) {
+function silentAction(store, action) {
   silent = true;
-  store[action](...args);
+  store[action].apply(store, Array.prototype.slice.call(arguments, 2));
   silent = false;
 }
 
