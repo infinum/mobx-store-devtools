@@ -30,11 +30,11 @@
   "license": "MIT",
   "devDependencies": {
     "mobx": "^3.1.16",
-    "mobx-collection-store": "^1.4.0"
+    "mobx-collection-store": "^1.4.1"
   },
   "peerDependencies": {
     "mobx": "^3.0.0",
-    "mobx-collection-store": "^1.4.0"
+    "mobx-collection-store": "^1.4.1"
   },
   "dependencies": {
     "remotedev": "^0.2.7"

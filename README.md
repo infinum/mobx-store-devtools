@@ -28,7 +28,7 @@ The [MIT License](LICENSE)
 
 ## Credits
 
-mobx-collection-store is maintained and sponsored by
+mobx-store-devtools library is maintained and sponsored by
 [Infinum](http://www.infinum.co).
 
 <img src="https://infinum.co/infinum.png" width="264">
