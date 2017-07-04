@@ -18,6 +18,8 @@ const collection = new Collection();
 init(collection); // This can be any instance of the collection or jsonapi store
 ```
 
+If you need to pass some options (e.g. remote), you can pass an options object as the second argument.
+
 ## Store usage
 
 For the store usage, check the [mobx-collection-store](https://github.com/infinum/mobx-collection-store/wiki) and [mobx-jsonapi-store](https://github.com/infinum/mobx-jsonapi-store/wiki) docs.

@@ -40,7 +40,7 @@ var toggleAction = mobx.action('TOGGLE_ACTION', function toggleAction(store, id,
 });
 
 module.exports = {
-  init: function init(store) {
+  init: function init(store, options) {
     if (!('findAll' in store)) {
       throw new Error('The store should be a mobx-collection-store or mobx-jsonapi-store instance');
     }
@@ -49,7 +49,7 @@ module.exports = {
       throw new Error('Please upgrade your mobx-collection-store (minimal version is 1.4.0)');
     }
 
-    var devtools = remotedev.connectViaExtension();
+    var devtools = remotedev.connectViaExtension(options);
 
     devtools.subscribe(function onMessage(message) {
       // Helper when only time travelling needed
